@@ -1,0 +1,9 @@
+# Latch stuff
+.latch_history
+.latch_report.tar.gz
+.logs
+
+# python stuff
+__pycache__/
+*.py[cod]
+wf/__pycache__/
