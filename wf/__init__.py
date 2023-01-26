@@ -12,7 +12,7 @@ def downsample_task(
     r1: LatchFile,
     r2: LatchFile,
     out_dir: str,
-    sample_rate: float
+    out_reads: int
 ) -> (LatchFile, LatchFile):
 
     r1_name, r2_name = (Path(r).name for r in (r1, r2))
@@ -24,7 +24,7 @@ def downsample_task(
         f"in2={r2.local_path}",
         f"out1={str(out_r1)}",
         f"out2={str(out_r2)}",
-        f"samplerate={sample_rate}"
+        f"samplereadstarget={out_reads}"
         ]
 
     subprocess.run(_reformat_cmd)
@@ -65,9 +65,9 @@ metadata = LatchMetadata(
             description="name of subdir in downsample/",
             batch_table_column=True,
         ),
-        "sample_rate": LatchParameter(
-            display_name="sample rate",
-            description="fraction of reads in output",
+        "out_reads": LatchParameter(
+            display_name="out reads",
+            description="exact number of OUTPUT reads (or pairs) desired",
             batch_table_column=True,
         ),
     },
@@ -79,7 +79,7 @@ def downsample(
     r1: LatchFile,
     r2: LatchFile,
     out_dir: str,
-    sample_rate: float
+    out_reads: int
 ) -> (LatchFile, LatchFile):
     """Quick workflow for downsampling paired-end reads.
 
@@ -95,7 +95,7 @@ def downsample(
         r1=r1,
         r2=r2,
         out_dir=out_dir,
-        sample_rate=sample_rate
+        out_reads=out_reads
     )
 
 
@@ -106,6 +106,6 @@ LaunchPlan(
         "r1" : LatchFile("latch:///BASESPACE_IMPORTS/projects/PL000121/D01033_NG01681_L1/D01033_NG01681_S3_L001_R1_001.fastq.gz"),
         "r2" : LatchFile("latch:///BASESPACE_IMPORTS/projects/PL000121/D01033_NG01681_L1/D01033_NG01681_S3_L001_R2_001.fastq.gz"),
         "out_dir" : "D01033_NG01681",
-        "sample_rate" : 0.1 
+        "out_reads" : 50000000
     }
 )
