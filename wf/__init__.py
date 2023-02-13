@@ -64,6 +64,12 @@ metadata = LatchMetadata(
             display_name="out dir",
             description="name of subdir in downsample/",
             batch_table_column=True,
+            rules=[
+                LatchRule(
+                    regex="^[^/].*",
+                    message="run id cannot start with a '/'"
+                )
+            ]
         ),
         "out_reads": LatchParameter(
             display_name="out reads",
@@ -88,6 +94,7 @@ def downsample(
 
     Quick workflow for downsampling paired-end reads with bbmap.reformat.sh.
     Assumes fasta/q format; returns filtered reads to directory /outputs.
+    For more info see https://github.com/BioInfoTools/BBMap/blob/master/sh/reformat.sh
     """
 
     
