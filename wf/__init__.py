@@ -116,3 +116,11 @@ LaunchPlan(
         "out_reads" : 50000000
     }
 )
+
+if __name__ == "__main__":
+   downsample_task(
+    r1="latch:///BASESPACE_IMPORTS/projects/PL000162/B00508_NG02348_L1/B00508_NG02348_S8_L001_R1_001.fastq.gz",
+    r2="latch:///BASESPACE_IMPORTS/projects/PL000162/B00508_NG02348_L1/B00508_NG02348_S8_L001_R2_001.fastq.gz",
+    out_dir="JA_ds_B00508_NG02348",
+    out_reads=18000000
+   )
