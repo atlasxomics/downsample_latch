@@ -1,10 +1,17 @@
 from pathlib import Path
+from typing import Tuple
 import subprocess
 
 from latch import small_task, workflow
 from latch.resources.launch_plan import LaunchPlan
-from latch.types import (LatchAuthor, LatchDir, LatchFile, LatchMetadata,
-                        LatchParameter, LatchRule)
+from latch.types import (
+    LatchAuthor,
+    LatchDir,
+    LatchFile,
+    LatchMetadata,
+    LatchParameter,
+    LatchRule
+)
 
 
 @small_task(retries=0)
@@ -13,7 +20,7 @@ def downsample_task(
     r2: LatchFile,
     out_dir: str,
     out_reads: int
-) -> (LatchFile, LatchFile):
+) -> Tuple[LatchFile, LatchFile]:
 
     r1_name, r2_name = (Path(r).name for r in (r1, r2))
     out_r1, out_r2 = (Path(f"ds_{n}").resolve() for n in (r1_name, r2_name))
@@ -86,7 +93,7 @@ def downsample(
     r2: LatchFile,
     out_dir: str,
     out_reads: int
-) -> (LatchFile, LatchFile):
+) -> Tuple[LatchFile, LatchFile]:
     """Quick workflow for downsampling paired-end reads.
 
     downsample reads
